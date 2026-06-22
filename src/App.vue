@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { useAppStore } from './store/useAppStore'
 import Settings from './components/Settings.vue'
 import Loader from './components/Loader.vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 
 const { t } = useI18n()
 const appStore = useAppStore()

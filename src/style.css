@@ -7,7 +7,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f3f4f6; /* bg-gray-100 */
+  background-color: oklch(96.7% 0.001 286.375);
+  /* bg-zinc-100 */
 }
 
 /* Ensure body transitions colors smoothly */
@@ -16,7 +17,8 @@ body {
 }
 
 html.dark body {
-  background-color: #111827; /* bg-gray-900 */
+  background-color: oklch(14.1% 0.005 285.823);
+  /* bg-zinc-900 */
 }
 
 #app {
