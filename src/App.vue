@@ -2,10 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from './store/useAppStore'
 import Settings from './components/Settings.vue'
-import ImageUploader from './components/ImageUploader.vue'
-import USLabel from './components/USLabel.vue'
-import ActionButtons from './components/ActionButtons.vue'
 import Loader from './components/Loader.vue'
+import { RouterLink, RouterView } from 'vue-router'
 
 const { t } = useI18n()
 const appStore = useAppStore()
@@ -19,6 +17,15 @@ const appStore = useAppStore()
       <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-orange-500 inline-block mb-2 drop-shadow-sm">
         {{ t('appTitle') }}
       </h1>
+      
+      <!-- <nav class="mt-4 flex justify-center gap-4 text-sm font-semibold">
+        <RouterLink to="/" class="px-4 py-2 rounded-full transition-all text-gray-500 hover:text-amber-500" active-class="!text-amber-600 dark:!text-amber-400 bg-amber-100 dark:bg-amber-900/30">
+          {{ t('navScanner') }}
+        </RouterLink>
+        <RouterLink to="/test" class="px-4 py-2 rounded-full transition-all text-gray-500 hover:text-amber-500" active-class="!text-amber-600 dark:!text-amber-400 bg-amber-100 dark:bg-amber-900/30">
+          {{ t('navTest') }}
+        </RouterLink>
+      </nav> -->
     </header>
 
     <main class="max-w-4xl mx-auto px-4">
@@ -29,9 +36,7 @@ const appStore = useAppStore()
         <button @click="appStore.errorMessage = null" class="font-bold p-1 hover:bg-red-200 dark:hover:bg-red-800 rounded-lg transition-colors">✕</button>
       </div>
 
-      <ImageUploader />
-      <USLabel />
-      <ActionButtons />
+      <RouterView />
       
     </main>
 

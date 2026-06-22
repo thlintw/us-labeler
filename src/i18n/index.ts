@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   'en-US': {
-    appTitle: 'US Labeler',
+    appTitle: 'FDA Label Gen',
     settings: 'Settings',
     apiKeyTitle: 'Google Gemini API Key',
     apiKeyPlaceholder: 'Enter your API key',
@@ -13,6 +13,13 @@ const messages = {
     light: 'Light',
     dark: 'Dark',
     system: 'System',
+    telegramTitle: 'Telegram Integration (Optional)',
+    telegramBotToken: 'Bot Token',
+    telegramBotTokenPlaceholder: 'e.g., 123456:ABC-DEF1234ghIkl-zyx...',
+    telegramChatId: 'Chat ID',
+    telegramChatIdPlaceholder: 'e.g., -1001234567890',
+    telegramHelp: 'Allows sending labels directly to your Telegram chat.',
+    sendToTelegram: 'Send to Telegram',
     uploadTitle: 'Upload Image',
     uploadSubtitle: 'Tap to open camera or drag and drop an image of a nutritional label.',
     resetImage: 'Reset Image',
@@ -37,7 +44,14 @@ const messages = {
     dietaryFiber: 'Dietary Fiber',
     totalSugars: 'Total Sugars',
     includesAddedSugars: 'Includes Added Sugars',
-    protein: 'Protein'
+    protein: 'Protein',
+    vitaminD: 'Vitamin D',
+    calcium: 'Calcium',
+    iron: 'Iron',
+    potassium: 'Potassium',
+    navScanner: 'Scanner',
+    navTest: 'Test Layout',
+    downloadCanvas: 'Download Canvas'
   },
   'zh-TW': {
     appTitle: '營養標籤轉換器',
@@ -51,6 +65,13 @@ const messages = {
     light: '淺色',
     dark: '深色',
     system: '跟隨系統',
+    telegramTitle: 'Telegram 整合 (選填)',
+    telegramBotToken: '機器人 Token (Bot Token)',
+    telegramBotTokenPlaceholder: '例如：123456:ABC-DEF1234ghIkl-zyx...',
+    telegramChatId: '聊天室 ID (Chat ID)',
+    telegramChatIdPlaceholder: '例如：-1001234567890',
+    telegramHelp: '允許直接將營養標籤傳送至您的 Telegram 聊天室。',
+    sendToTelegram: '傳送至 Telegram',
     uploadTitle: '上傳圖片',
     uploadSubtitle: '點擊開啟相機，或拖曳營養標籤圖片至此。',
     resetImage: '重新上傳',
@@ -75,7 +96,14 @@ const messages = {
     dietaryFiber: 'Dietary Fiber (膳食纖維)',
     totalSugars: 'Total Sugars (糖)',
     includesAddedSugars: 'Includes Added Sugars (含添加糖)',
-    protein: 'Protein (蛋白質)'
+    protein: 'Protein (蛋白質)',
+    vitaminD: 'Vitamin D (維生素D)',
+    calcium: 'Calcium (鈣)',
+    iron: 'Iron (鐵)',
+    potassium: 'Potassium (鉀)',
+    navScanner: '標籤掃描',
+    navTest: '版面測試',
+    downloadCanvas: '下載圖片'
   }
 }
 

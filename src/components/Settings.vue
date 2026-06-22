@@ -9,6 +9,8 @@ const appStore = useAppStore()
 
 const isOpen = ref(false)
 const inputKey = ref(appStore.apiKey)
+const inputTelegramToken = ref(appStore.telegramBotToken)
+const inputTelegramChatId = ref(appStore.telegramChatId)
 
 onMounted(() => {
   if (!appStore.apiKey) {
@@ -18,6 +20,8 @@ onMounted(() => {
 
 const save = () => {
   appStore.apiKey = inputKey.value
+  appStore.telegramBotToken = inputTelegramToken.value
+  appStore.telegramChatId = inputTelegramChatId.value
   isOpen.value = false
 }
 
@@ -100,6 +104,43 @@ const changeLanguage = (lang: string) => {
             >
               {{ t(opt) || opt }}
             </button>
+          </div>
+        </div>
+
+        <!-- Telegram Integration -->
+        <div class="space-y-2 mb-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2 mb-4">
+            <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            {{ t('telegramTitle') }}
+          </h3>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                {{ t('telegramBotToken') }}
+              </label>
+              <input 
+                v-model="inputTelegramToken" 
+                type="password" 
+                :placeholder="t('telegramBotTokenPlaceholder')"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                {{ t('telegramChatId') }}
+              </label>
+              <input 
+                v-model="inputTelegramChatId" 
+                type="text" 
+                :placeholder="t('telegramChatIdPlaceholder')"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              {{ t('telegramHelp') }}
+            </p>
           </div>
         </div>
 

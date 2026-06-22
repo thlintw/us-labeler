@@ -14,6 +14,10 @@ export interface NutritionInfo {
   totalSugars: number;
   addedSugars?: number; // Optional
   protein: number;
+  vitaminD?: number; // in mcg
+  calcium?: number; // in mg
+  iron?: number; // in mg
+  potassium?: number; // in mg
 }
 
 type Theme = 'light' | 'dark' | 'system'
@@ -26,9 +30,20 @@ export const useAppStore = defineStore('app', () => {
   const errorMessage = ref<string | null>(null)
   const theme = ref<Theme>((localStorage.getItem('app_theme') as Theme) || 'system')
 
+  const telegramBotToken = ref(localStorage.getItem('telegram_bot_token') || '')
+  const telegramChatId = ref(localStorage.getItem('telegram_chat_id') || '')
+
   // Sync apiKey to localStorage
   watch(apiKey, (newVal) => {
     localStorage.setItem('gemini_api_key', newVal)
+  })
+
+  // Sync Telegram settings
+  watch(telegramBotToken, (newVal) => {
+    localStorage.setItem('telegram_bot_token', newVal)
+  })
+  watch(telegramChatId, (newVal) => {
+    localStorage.setItem('telegram_chat_id', newVal)
   })
 
   // Theme management
@@ -68,6 +83,8 @@ export const useAppStore = defineStore('app', () => {
     isLoading,
     errorMessage,
     theme,
+    telegramBotToken,
+    telegramChatId,
     reset
   }
 })
