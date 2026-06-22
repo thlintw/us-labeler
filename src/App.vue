@@ -1,17 +1,60 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from './store/useAppStore'
 import Settings from './components/Settings.vue'
 import Loader from './components/Loader.vue'
 import { RouterView } from 'vue-router'
+import { Download } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const appStore = useAppStore()
+
+// PWA Install Logic
+const deferredPrompt = ref<any>(null)
+
+const handleBeforeInstallPrompt = (e: any) => {
+  e.preventDefault()
+  deferredPrompt.value = e
+}
+
+const handleAppInstalled = () => {
+  deferredPrompt.value = null
+}
+
+onMounted(() => {
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+  window.addEventListener('appinstalled', handleAppInstalled)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+  window.removeEventListener('appinstalled', handleAppInstalled)
+})
+
+const installApp = async () => {
+  if (!deferredPrompt.value) return
+  deferredPrompt.value.prompt()
+  const { outcome } = await deferredPrompt.value.userChoice
+  if (outcome === 'accepted') {
+    deferredPrompt.value = null
+  }
+}
 </script>
 
 <template>
   <div class="min-h-screen text-gray-900 dark:text-gray-100 font-sans pb-20">
     <Settings />
+
+    <!-- Install App Button -->
+    <button 
+      v-if="deferredPrompt"
+      @click="installApp" 
+      class="fixed top-4 right-16 p-2 px-4 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg transition-all z-40 flex items-center gap-2 font-bold text-sm"
+    >
+      <Download class="w-4 h-4" />
+      {{ t('installApp') }}
+    </button>
 
     <header class="pt-12 pb-6 text-center">
       <h1 class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-orange-500 inline-block mb-2 drop-shadow-sm">

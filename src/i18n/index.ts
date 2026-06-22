@@ -51,7 +51,8 @@ const messages = {
     potassium: 'Potassium',
     navScanner: 'Scanner',
     navTest: 'Test Layout',
-    downloadCanvas: 'Download Canvas'
+    downloadCanvas: 'Download Canvas',
+    installApp: 'Install App'
   },
   'zh-TW': {
     appTitle: '營養標籤轉換器',
@@ -103,7 +104,8 @@ const messages = {
     potassium: 'Potassium (鉀)',
     navScanner: '標籤掃描',
     navTest: '版面測試',
-    downloadCanvas: '下載圖片'
+    downloadCanvas: '下載圖片',
+    installApp: '安裝應用程式'
   }
 }
 
