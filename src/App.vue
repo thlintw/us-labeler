@@ -9,6 +9,7 @@ import { Download } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const appStore = useAppStore()
+const appVersion = __APP_VERSION__
 
 // PWA Install Logic
 const deferredPrompt = ref<any>(null)
@@ -84,5 +85,10 @@ const installApp = async () => {
     </main>
 
     <Loader v-if="appStore.isLoading" />
+
+    <!-- Version Footer -->
+    <footer class="text-center text-xs text-gray-400/80 dark:text-gray-500/80 pt-16 pb-4 font-mono">
+      v{{ appVersion }}
+    </footer>
   </div>
 </template>

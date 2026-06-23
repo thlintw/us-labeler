@@ -8,6 +8,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: oklch(96.7% 0.001 286.375);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2) 0, transparent 2px);
+  background-size: 24px 24px;
   /* bg-zinc-100 */
 }
 
@@ -18,6 +20,7 @@ body {
 
 html.dark body {
   background-color: oklch(14.1% 0.005 285.823);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 0, transparent 2px);
   /* bg-zinc-900 */
 }
 

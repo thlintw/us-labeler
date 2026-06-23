@@ -49,20 +49,6 @@ export async function sendPhotoToTelegram(botToken: string, chatId: string, phot
 }
 
 /**
- * Helper to convert a Data URL (base64) to a Blob
- */
-function dataURItoBlob(dataURI: string): Blob {
-  const byteString = atob(dataURI.split(',')[1]);
-  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-  const ab = new ArrayBuffer(byteString.length);
-  const ia = new Uint8Array(ab);
-  for (let i = 0; i < byteString.length; i++) {
-    ia[i] = byteString.charCodeAt(i);
-  }
-  return new Blob([ab], { type: mimeString });
-}
-
-/**
  * Sends a media group (album) with both the original image and the generated label to Telegram.
  */
 export async function sendAlbumToTelegram(botToken: string, chatId: string, originalImageBase64: string, labelBlob: Blob): Promise<void> {
@@ -70,7 +56,9 @@ export async function sendAlbumToTelegram(botToken: string, chatId: string, orig
     throw new Error('Telegram Bot Token and Chat ID are required');
   }
 
-  const originalBlob = dataURItoBlob(originalImageBase64);
+  // Use native fetch to elegantly convert base64 data URI to a Blob
+  const originalResponse = await fetch(originalImageBase64);
+  const originalBlob = await originalResponse.blob();
 
   const url = `https://api.telegram.org/bot${botToken}/sendMediaGroup`;
   const formData = new FormData();
@@ -78,14 +66,14 @@ export async function sendAlbumToTelegram(botToken: string, chatId: string, orig
   
   // Media array instructing Telegram how to read the attachments
   const media = [
-    { type: 'photo', media: 'attach://original' },
-    { type: 'photo', media: 'attach://label' }
+    { type: 'photo', media: 'attach://photo1' },
+    { type: 'photo', media: 'attach://photo2' }
   ];
   formData.append('media', JSON.stringify(media));
 
-  // Attach files with corresponding names
-  formData.append('original', originalBlob, 'original.jpg');
-  formData.append('label', labelBlob, 'label.png');
+  // Attach files with exact matching names
+  formData.append('photo1', originalBlob, 'original.jpg');
+  formData.append('photo2', labelBlob, 'label.png');
 
   const response = await fetch(url, {
     method: 'POST',
