@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../store/useAppStore'
 import { Copy, RefreshCw, Check, Send } from 'lucide-vue-next'
-import { captureElementAsBlob, sendPhotoToTelegram } from '../services/telegram'
+import { captureElementAsBlob, sendPhotoToTelegram, sendAlbumToTelegram } from '../services/telegram'
 
 const { t } = useI18n()
 const appStore = useAppStore()
@@ -43,7 +43,11 @@ const sendToTelegramAction = async () => {
   try {
     telegramSending.value = true
     const blob = await captureElementAsBlob('us-label-content')
-    await sendPhotoToTelegram(appStore.telegramBotToken, appStore.telegramChatId, blob)
+    if (appStore.currentImage) {
+      await sendAlbumToTelegram(appStore.telegramBotToken, appStore.telegramChatId, appStore.currentImage, blob)
+    } else {
+      await sendPhotoToTelegram(appStore.telegramBotToken, appStore.telegramChatId, blob)
+    }
     telegramSent.value = true
     setTimeout(() => { telegramSent.value = false }, 3000)
   } catch (err: any) {
